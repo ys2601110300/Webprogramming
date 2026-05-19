@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형 웹패턴 4(오른쪽, 아래쪽)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 960px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #menu {
+            width: 250px;
+            float: left;
+        }
+
+        #content {
+            width: 700px;
+            float: right;
+        }
+
+
+        @media screen and (max-width: 767px) {
+            body {
+                width: 100%;
+            }
+            #menu {
+                width: 100%;
+                float: none;
+            }
+            #content {
+                width: 100%;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id = "menu">
+        <ul>
+            <li>Menu 1</li>
+            <li>Menu 2</li>
+            <li>Menu 3</li>
+        </ul>
+    <div id = "content">
+        <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+        </p>
+    </div>
+</body>
+</html>
