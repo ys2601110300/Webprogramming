@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소객체 속성 조작</title>
+    <script>
+        //textcontent, innerHTML
+        window.onload = function(){
+            let img1 = document.getElementById("img1");
+
+            img1.src = "https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjRfMTYg/MDAxNTk1NTUzMTg3MDgz.6yOyg6_ZrSZLRZQLDiLF9_Ie_6ZDIvJAmNUKu0x62eEg.iMRgM_ifuUN2Mc81HpgtWePiUwrnVM-4DpQ-hI3NPkMg.JPEG.plusyplusy/8903642516_5b38c5b101_o.jpg?type=w800";
+            img1.width = 300;
+            img1.height = 200;
+        }
+        
+        function changeImage(btn){
+            if( img1.src == "https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjRfMTYg/MDAxNTk1NTUzMTg3MDgz.6yOyg6_ZrSZLRZQLDiLF9_Ie_6ZDIvJAmNUKu0x62eEg.iMRgM_ifuUN2Mc81HpgtWePiUwrnVM-4DpQ-hI3NPkMg.JPEG.plusyplusy/8903642516_5b38c5b101_o.jpg?type=w800"){
+            let img1 = document.getElementById("img1");
+            img1.src = "C:\\Webprogramming\\0602\\imgs\\Daehwan.jpg";
+            btn.innerText = "레서판다 이미지로 변경";
+        }
+        
+            else{
+            let img1 = document.getElementById("img1");
+            img1.src = "https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjRfMTYg/MDAxNTk1NTUzMTg3MDgz.6yOyg6_ZrSZLRZQLDiLF9_Ie_6ZDIvJAmNUKu0x62eEg.iMRgM_ifuUN2Mc81HpgtWePiUwrnVM-4DpQ-hI3NPkMg.JPEG.plusyplusy/8903642516_5b38c5b101_o.jpg?type=w800";
+            btn.innerText = "하프물범 이미지로 변경";
+        }
+    }
+    </script>
+</head>
+<body>
+    <button onclick = "changeImage(this)">동물 이미지 변경</button>
+    <br><br>
+    <img id = "img1">
+</body>
+</html>
