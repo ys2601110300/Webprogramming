@@ -23,32 +23,33 @@
             btn.style.color = "black";
         }
 
-        function changeImage(btn){
-            img = btn.querySelector("img");
-            let src = img.getAttribute("src");
-            if (src == "imgs/html.jpg") {
-                img.src = "imgs/html2.jpg";
+        let count = 1;
+        function changeImage(img){
+            count++;
+            if(count ==6){
+                count = 1;
             }
-            else if(src == "imgs/html2.jpg") {
-                img.src = "imgs/html3.jpg";
-            }
-            else if (src == "imgs/html3.jpg") { 
-                img.src = "imgs/html4.jpg";
-            }
-            else if (src == "imgs/html4.jpg") {
-                img.src = "imgs/html5.jpg";
-            }
-            else if (src == "imgs/html5.jpg") {
-                img.src = "imgs/html.jpg";
-            }
+            img.src = "imgs/html" + count + ".jpg";
+        }
+
+        function showImageSlide(){
+            let img = document.getElementById("img2");
+            setInterval(function(){
+                count++;
+                if(count ==6){
+                    count = 1;
+                }
+                img.src = "imgs/html" + count + ".jpg";
+            },1000);
         }
     </script>
 </head>
-<body>
+<body onload = "showImageSlide()">
     <button onclick="alert('인라인 이벤트 모델 1')">인라인 이벤트 모델</button><br><br>
     <button onclick="greet()">인라인 이벤트 모델 2</button><br><br>
     <button onclick="addStar(this)">별 추가</button>
     <button onmouseover = "overChange(this)" onmouseout = "outChange(this)"> 배경 및 글자색 변경</button>
-    <button onclick = "changeImage(this)"><img src = "imgs/html.jpg" width = "400" height = "300"></button>
+    <img src = "imgs/html.jpg" width = "400" height = "300" onclick="changeImage(this)" style = "cursor: pointer;">
+    <img src = "imgs/html.jpg" width = "400" height = "300" id = "img2">
 </body>
 </html>
