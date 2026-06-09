@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>인라인 이벤트 모델 1</title>
     <script>
+  
         function greet() {
             alert('안녕하세요~ 인라인 이벤트 모델 2');
         }
@@ -26,7 +27,7 @@
         let count = 1;
         function changeImage(img){
             count++;
-            if(count ==6){
+            if(count == 6){
                 count = 1;
             }
             img.src = "imgs/html" + count + ".jpg";
@@ -35,13 +36,31 @@
         function showImageSlide(){
             let img = document.getElementById("img2");
             setInterval(function(){
-                count++;
+                count += 1;
                 if(count ==6){
                     count = 1;
                 }
                 img.src = "imgs/html" + count + ".jpg";
-            },1000);
+            },100);
+
+            let a1 = document.getElementById("a1");
+            a1.onclick = function(){
+                return false; // a 태그의 디폴트 이벤트 제거 
+            }
         }
+
+        function showImageSlide2(){
+            let img = document.getElementById("img3");
+            img.src = "imgs/html" + count + ".jpg";
+            setInterval(function(){
+                count ++;
+                if(count ==6){
+                    count = 1;
+                }
+                },2000);
+        }
+        
+        
     </script>
 </head>
 <body onload = "showImageSlide()">
@@ -49,7 +68,9 @@
     <button onclick="greet()">인라인 이벤트 모델 2</button><br><br>
     <button onclick="addStar(this)">별 추가</button>
     <button onmouseover = "overChange(this)" onmouseout = "outChange(this)"> 배경 및 글자색 변경</button>
-    <img src = "imgs/html.jpg" width = "400" height = "300" onclick="changeImage(this)" style = "cursor: pointer;">
-    <img src = "imgs/html.jpg" width = "400" height = "300" id = "img2">
+    <img src = "imgs/html1.jpg" width = "400" height = "300" onclick="changeImage(this)" style = "cursor: pointer;">
+    <img src = "imgs/html1.jpg" width = "400" height = "300" id = "img2">
+    <img src = "imgs/html1.jpg" width = "400" height = "300" onload = "showImageSlide2()" id = "img3">
+    <a href = "https://www.google.com" id = "a1">디폴트 이벤트 제거</a>
 </body>
 </html>
