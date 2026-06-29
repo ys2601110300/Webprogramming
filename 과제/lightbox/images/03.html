@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안구 건조증 케어</title>
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <link rel = "stylesheet" href = "jquery.lightbox.css">
+    <script src = "jquery.lightbox.js"></script>
+    <script>
+    window.onload = function(){
+        let clock = document.getElementById("clock");
+        setInterval(function(){
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            let date = now.getDate();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            clock.innerHTML = year + " 년 " + month + " 월 " + date + " 일 " + hours + ":" + minutes + ":" + seconds;
+        }, 1000);
+    }
+    </script>
+    <script>
+        $(document).ready(
+            function(){
+                $("a.lightbox").lightBox();
+            }
+        )
+    $(function(){
+        var blinkCount = 0;
+        $('#blink-btn').on('click', function(){
+            blinkCount++;
+            $('#blink-count').text(blinkCount + ' 회');
+            var msg = '';
+            if(blinkCount < 5)       msg = '눈이 많이 건조할 수 있어요 😢';
+            else if(blinkCount < 15) msg = '조금 더 의식적으로 깜빡여보세요 😐';
+            else if(blinkCount < 25) msg = '정상 범위입니다 👍';
+            else                      msg = '아주 활발하게 깜빡이고 있어요 😊';
+            $('#blink-msg').text(msg);
+        });
+
+        $('.detail-btn').on('click', function(){
+            $(this).next('.detail').slideToggle(300);
+            $(this).text($(this).next('.detail').is(':hidden') ? '상세 보기' : '접기');
+        });
+
+        var timerSeconds = 1200;
+        var timerInterval = null;
+        var timerRunning = false;
+
+        function displayTimer(sec){
+            var m = String(Math.floor(sec/60)).padStart(2,'0');
+            var s = String(sec%60).padStart(2,'0');
+            $('#timer-display').text(m + ':' + s);
+        }
+
+        $('#timer-start').on('click', function(){
+            if(!timerRunning){
+                timerRunning = true;
+                $(this).text('일시정지');
+                timerInterval = setInterval(function(){
+                    timerSeconds--;
+                    displayTimer(timerSeconds);
+                    if(timerSeconds <= 0){
+                        clearInterval(timerInterval);
+                        timerRunning = false;
+                        $('#timer-start').text('시작');
+                        alert('⏰ 20초간 먼 곳을 바라보세요! (약 6m 이상)');
+                        timerSeconds = 1200;
+                        displayTimer(timerSeconds);
+                    }
+                }, 1000);
+            } else {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                $(this).text('계속');
+            }
+        });
+
+        $('#timer-reset').on('click', function(){
+            clearInterval(timerInterval);
+            timerRunning = false;
+            timerSeconds = 1200;
+            displayTimer(timerSeconds);
+            $('#timer-start').text('시작');
+        });
+    });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #f7fbfc, #eaf3f5);
+            font-family: 'Times New Roman', serif;
+            color: #222;
+            scroll-behavior: smooth;
+        }
+
+        #backgroundimage {
+            background-image: url(backgroundimage.jpg);
+            background-size: cover;
+            background-position: right top;
+            padding: 20px;
+        }
+
+        #top {
+            text-align: center;
+            padding-top: 70px;
+            padding-bottom: 20px;
+            margin: 0 auto 30px auto;
+            width: 950px;
+        }
+
+        #top h1 {
+            font-size: 30px;
+        }
+
+        #clock {
+            margin-top: 10px;
+            font-size: 15px;
+            color: #5b7c87;
+            letter-spacing: 1px;
+        }
+
+        /* ===== 고정 메뉴 ===== */
+        #menu {
+            width: 70px;
+            top: 20px;
+            right: 20px;
+            position: fixed;
+            border-radius: 12px;
+            border: 2px solid #5b7c87;
+            background-color: #f4f8f9;
+            overflow: hidden;
+        }
+
+        #menu li {
+            list-style: none;
+            text-align: center;
+            border-bottom: 1px solid #d4e4e8;
+        }
+
+        #menu li:last-child { border-bottom: none; }
+
+        #menu li a {
+            display: block;
+            padding: 8px 0;
+            text-decoration: none;
+            color: #28424b;
+            font-size: 14px;
+            transition: all 0.25s ease;
+        }
+
+        #menu li a:hover {
+            background-color: #5b7c87;
+            color: #fff;
+        }
+
+        #start {
+            background-color: #e8f0f2;
+            padding: 25px;
+            margin: 3px auto 25px auto;
+            border: 2px solid #5b7c87;
+            border-radius: 15px;
+            width: 950px;
+        }
+
+        #start h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #start p {
+            margin-bottom: 12px;
+        }
+
+        #start li {
+            margin-bottom: 8px;
+            margin-left: 20px;
+        }
+
+        #blink-tester {
+            background-color: #cde4d9;
+            border: 2px solid #5b7c87;
+            border-radius: 15px;
+            width: 950px;
+            margin: 0 auto 25px auto;
+            padding: 25px;
+            text-align: center;
+        }
+
+        #blink-tester h2 { font-size: 22px; margin-bottom: 12px; }
+        #blink-tester p { margin-bottom: 16px; font-size: 15px; color: #28424b; }
+
+        #blink-btn {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #5b7c87;
+            background-color: #5b7c87;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.15s, transform 0.1s;
+        }
+
+        #blink-count {
+            font-size: 26px;
+            font-weight: bold;
+            color: #28424b;
+            margin-top: 18px;
+        }
+
+        #blink-msg { margin-top: 8px; font-size: 15px; color: #443366; min-height: 20px; }
+
+        #middle {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 22px;
+            border: 2px solid #5b7c87;
+            border-radius: 15px;
+            margin: 0 auto 10px auto;
+            background-color: #f0f4f5;
+            width: 960px;
+        }
+
+        #middle p {
+            font-size: 13px;
+        }
+
+        #content {
+            background-color: #e8f0f2;
+            padding: 30px 20px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border: 2px solid #5b7c87;
+            border-radius: 15px;
+            width: 960px;
+        }
+
+        .image-box {
+            width: 30%;
+        }
+
+        .image {
+            text-align: center;
+        }
+
+        .image h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .image img {
+            width: 100%;
+            height: 180px;
+            margin-bottom: 15px;
+            display: block;
+            border: 1px solid black;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        .supplements {
+            background-color: #cde4d9;
+            padding: 15px;
+            font-size: 15px;
+            border-radius: 12px;
+            color: #28424b;
+        }
+
+        .detail-btn {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background-color: #5b7c87;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .detail {
+            display: none;
+            margin-top: 12px;
+            background-color: #f4f8f9;
+            border: 1px solid #5b7c87;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 14px;
+            text-align: left;
+            line-height: 1.6;
+            color: #28424b;
+        }
+
+        #notice {
+            width: 100%;
+            margin-top: 25px;
+            background-color: #cde4d9;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        #notice ul { margin-left: 20px; }
+        #notice li { margin-bottom: 6px; }
+
+        #tip {
+            background-color: #e8f0f2;
+            padding: 30px 20px;
+            margin: 0 auto 30px auto;
+            border: 2px solid #5b7c87;
+            border-radius: 15px;
+            width: 960px;
+        }
+
+        #tip h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #tip_list {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        #tip_list li {
+            margin-bottom: 12px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: background-color 0.25s;
+            cursor: default;
+        }
+
+        #tip_list li:hover {
+            background-color: #cde4d9;
+        }
+
+        /* ===== 20-20-20 타이머 ===== */
+        #timer-box {
+            text-align: center;
+            background-color: #f0f4f5;
+            border: 2px solid #5b7c87;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        #timer-display {
+            font-size: 40px;
+            font-weight: bold;
+            color: #28424b;
+            margin: 14px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-btn {
+            padding: 10px 22px;
+            margin: 0 6px;
+            border: none;
+            border-radius: 8px;
+            background-color: #5b7c87;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        .timer-btn:hover { background-color: #46636d; }
+    </style>
+</head>
+<body>
+    <div id="top">
+        <h1>안구 건조증 케어</h1>
+        <p id="clock"></p>
+        <ul id="menu">
+            <li><a href="#top">홈</a></li>
+            <li><a href="#blink-tester">깜빡임</a></li>
+            <li><a href="#middle">영양제</a></li>
+            <li><a href="#tip">관리 팁</a></li>
+        </ul>
+    </div>
+
+    <div id="backgroundimage">
+        <div id="start">
+            <h2>안구 건조증이란</h2>
+            <p>안구 건조증(건성안)은 눈물의 분비가 줄어들거나, 눈물의 성분이나 눈물막 구조에 이상이 생겨 안구가 충분히 보호·윤활되지 못하는 상태</p>
+            <p>눈물막이 불안정해지면서 눈물의 삼투압이 높아지고, 안구 표면에 미세 손상과 염증이 생기며 다양한 눈 불편 증상이 동반되는 질환</p>
+            <h2>발생 원인</h2>
+            <ul>
+                <li>마이봄샘 기능 장애 (눈물 증발 과다): 눈꺼풀 가장자리의 기름샘(마이봄샘)이 막혀 눈물을 보호하는 기름층이 부족해지면서 눈물이 빠르게 증발</li>
+                <li>환경적 요인: 건조한 실내 공기(에어컨·난방), 장시간 화면 응시(스마트폰·PC)로 인한 깜빡임 감소, 자외선·바람·미세먼지 등 외부 자극</li>
+                <li>전신 질환 및 약물: 쇼그렌증후군·류마티스관절염 등 자가면역 질환, 항히스타민제·이뇨제·항우울제 등 약물 부작용</li>
+                <li>기타: 노화(눈물 분비 감소), 라식·라섹 등 굴절교정 수술 후 각막 신경 손상, 콘택트렌즈 장시간 착용</li>
+            </ul>
+        </div>
+
+
+    <div id="blink-tester">
+        <h2>👁 깜빡임 횟수 체크</h2>
+        <p>1분 동안 눈을 깜빡일 때마다 버튼을 눌러보세요. 정상은 분당 15~20회입니다.</p>
+        <button id="blink-btn">깜빡!</button>
+        <div id="blink-count">0 회</div>
+        <div id="blink-msg"></div>
+    </div>
+
+    <div id="middle">
+        <h2>안구 건조증에 좋은 영양제</h2>
+        <p>아래 영양제 카드에서 자세한 정보를 확인하세요.</p>
+    </div>
+
+    <div id="content">
+        <div class="image-box image">
+            <h3>오메가-3</h3>
+            <a class = "lightbox" href = "omega3.png"><img src="omega3.png" alt="오메가-3" title="오메가-3"></a>
+            <div class="supplements">
+                <p>EPA·DHA가 마이봄샘 기능을 개선해 눈물막 안정성을 높여줍니다.</p>
+                <button class="detail-btn">상세 보기</button>
+                <div class="detail">
+                    <strong>추천 섭취량:</strong> EPA+DHA 합계 1,000~2,000mg/일<br>
+                    <strong>복용 시 주의:</strong> 혈액 희석 효과가 있으므로 수술 전 중단<br>
+                    <strong>식품 공급원:</strong> 고등어, 연어, 정어리, 아마씨유
+                </div>
+            </div>
+        </div>
+
+        <div class="image-box image">
+            <h3>루테인</h3>
+            <a class = "lightbox" href = "lutein.png"><img src="lutein.png" alt="루테인" title="루테인"></a>
+            <div class="supplements">
+                <p>황반 색소를 보충해 청광 차단 및 산화 스트레스 감소에 도움을 줍니다.</p>
+                <button class="detail-btn">상세 보기</button>
+                <div class="detail">
+                    <strong>추천 섭취량:</strong> 10~20mg<br>
+                    <strong>복용 시 주의:</strong> 과다 복용 시 피부가 노랗게 변하는 카로티노이드혈증 유발 가능<br>
+                    <strong>식품 공급원:</strong> 케일, 시금치, 브로콜리, 옥수수, 달걀노른자
+                </div>
+            </div>
+        </div>
+
+        <div class="image-box image">
+            <h3>아스타잔틴</h3>
+            <a class = "lightbox" href = "astaxanthin.png"><img src="astaxanthin.png" alt="아스타잔틴" title="아스타잔틴"></a>
+            <div class="supplements">
+                <p>혈액을 통해 이동하며 체내 곳곳에서 항산화 효과를 발휘합니다.</p>
+                <button class="detail-btn">상세 보기</button>
+                <div class="detail">
+                    <strong>추천 섭취량:</strong> 하루 4~12mg, 눈 피로·노안 예방 목적 시 6mg 권장<br>
+                    <strong>복용 시 주의:</strong> 과다 섭취 시 일시적으로 피부색 변화(붉은 빛) 부작용 발생 가능<br>
+                    <strong>식품 공급원:</strong> 연어, 청어알, 크릴오일, 헤마토코쿠스(미세조류) 추출물
+                </div>
+            </div>
+        </div>
+
+        <div id="notice">
+            <strong>⚠ 주의사항</strong>
+            <ul>
+                <li>영양제는 의약품이 아니므로 심한 증상에는 반드시 안과 전문의와 상담하세요.</li>
+                <li>복용 중인 약과 상호작용이 있을 수 있으니 의사·약사에게 문의하세요.</li>
+                <li>지용성 비타민(A·D·E·K)은 과잉 섭취 시 체내 축적 독성에 주의하세요.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tip">
+        <h2>🌿 일상 관리 팁</h2>
+        <ul id="tip_list">
+            <li>💧 인공눈물을 하루 4~6회 정기적으로 점안하세요.</li>
+            <li>🖥 모니터 화면은 눈높이보다 약간 아래에 두고, 화면과의 거리는 50~70cm를 유지하세요.</li>
+            <li>😌 의식적으로 눈을 자주 깜빡여 눈물막이 고루 퍼지게 하세요.</li>
+            <li>🌬 실내 습도를 40~60%로 유지하고, 에어컨·난방 바람이 직접 눈에 닿지 않도록 하세요.</li>
+            <li>☀ 야외 활동 시 UV 차단 선글라스를 착용해 자외선·바람으로부터 눈을 보호하세요.</li>
+            <li>🧖 온찜질(약 40°C)을 하루 10분씩 눈꺼풀에 적용하면 마이봄샘 기능이 개선됩니다.</li>
+        </ul>
+        <div id="timer-box">
+            <h3>⏱ 20-20-20 규칙 타이머</h3>
+            <p style="font-size:14px; color:#28424b; margin-bottom:4px;">20분마다 20피트(약 6m) 밖을 20초간 바라보세요.</p>
+            <div id="timer-display">20:00</div>
+            <button class="timer-btn" id="timer-start">시작</button>
+            <button class="timer-btn" id="timer-reset">초기화</button>
+            <video src="20-20-20rule.mp4" width="850" height="600" controls poster="video.png"></video>
+        </div>
+    </div>
+        </div>
+</body>
+</html>
